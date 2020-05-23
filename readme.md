@@ -4,7 +4,7 @@ This is an example Next.js project for running a blog powered by Google Docs.
 
 ## Getting Started
 
-To view the steps to setup Docs to work with this example view the post at https://Docs-blog.now.sh/blog/my-first-post or follow the steps below.
+To view the steps to set up Google Docs to work with this example view the post at https://docs-blog.now.sh/blog or follow the steps below.
 
 ## Create a Service Account
 
