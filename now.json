@@ -1,0 +1,12 @@
+{
+  "build": {
+    "env": {
+      "Docs_TOKEN": "@Docs-token",
+      "BLOG_INDEX_ID": "@blog-index-id"
+    }
+  },
+  "env": {
+    "Docs_TOKEN": "@Docs-token",
+    "BLOG_INDEX_ID": "@blog-index-id"
+  }
+}
