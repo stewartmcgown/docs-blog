@@ -10,12 +10,14 @@ import blogStyles from '../../styles/blog.module.css'
 import React, { CSSProperties, useEffect } from 'react'
 import { getBlogLink, getDateStr } from '../../lib/blog-helpers'
 import { getDoc } from '../../lib/drive/getPages'
+import { docs_v1 } from 'googleapis'
 
 // Get the data for each blog post
 export async function getStaticProps({ params: { id, name }, preview }) {
   // load the postsTable so that we can get the page's ID
   const post = await getDoc(id); 
 
+  
   return {
     props: {
       post,
@@ -37,7 +39,7 @@ export async function getStaticPaths() {
 
 const listTypes = new Set(['bulleted_list', 'numbered_list'])
 
-const RenderPost = ({ post, redirect, preview }) => {
+const RenderPost = ({ post, redirect, preview }: { post: docs_v1.Schema$Document; redirect: string; preview: boolean;}) => {
   const router = useRouter()
 
   let listTagName: string | null = null
@@ -51,21 +53,6 @@ const RenderPost = ({ post, redirect, preview }) => {
     }
   } = {}
 
-  useEffect(() => {
-    const twitterSrc = 'https://platform.twitter.com/widgets.js'
-    // make sure to initialize any new widgets loading on
-    // client navigation
-    if (post && post.hasTweet) {
-      if ((window as any)?.twttr?.widgets) {
-        ;(window as any).twttr.widgets.load()
-      } else if (!document.querySelector(`script[src="${twitterSrc}"]`)) {
-        const script = document.createElement('script')
-        script.async = true
-        script.src = twitterSrc
-        document.querySelector('body').appendChild(script)
-      }
-    }
-  }, [])
   useEffect(() => {
     if (redirect && !post) {
       router.replace(redirect)
@@ -92,30 +79,25 @@ const RenderPost = ({ post, redirect, preview }) => {
 
   return (
     <>
-      <Header titlePre={post.Page} />
+      <Header titlePre={post.title} />
       {preview && (
         <div className={blogStyles.previewAlertContainer}>
           <div className={blogStyles.previewAlert}>
             <b>Note:</b>
             {` `}Viewing in preview mode{' '}
-            <Link href={`/api/clear-preview?slug=${post.Slug}`}>
+            <Link href={`/api/clear-preview?slug=${post.title}`}>
               <button className={blogStyles.escapePreview}>Exit Preview</button>
             </Link>
           </div>
         </div>
       )}
       <div className={blogStyles.post}>
-        <h1>{post.Page || ''}</h1>
-        {post.Authors.length > 0 && (
-          <div className="authors">By: {'Test'}</div>
-        )}
-        {post.date && (
-          <div className="posted">Posted: {getDateStr(post.date)}</div>
-        )}
+        <h1>{post.title}</h1>
+
 
         <hr />
 
-        {(!post.content || post.content.length === 0) && (
+        {(!post.body) && (
           <p>This post has no content</p>
         )}
 

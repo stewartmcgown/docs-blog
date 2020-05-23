@@ -1,12 +1,14 @@
 {
   "build": {
     "env": {
-      "Docs_TOKEN": "@Docs-token",
-      "BLOG_INDEX_ID": "@blog-index-id"
+      "GOOGLE_EMAIL": "@google-email",
+      "GOOGLE_PK": "@google-pk",
+      "GOOGLE_ROOT": "@google-root"
     }
   },
   "env": {
-    "Docs_TOKEN": "@Docs-token",
-    "BLOG_INDEX_ID": "@blog-index-id"
+    "GOOGLE_EMAIL": "@google-email",
+    "GOOGLE_PK": "@google-pk",
+    "GOOGLE_ROOT": "@google-root"
   }
 }
